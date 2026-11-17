@@ -65,7 +65,7 @@ main[x_, y_, u_, k_, lambda_] := Module[{b, a, p},
 
 good1[x_, y_] := Module[{p},
   p = main[x, y, 3/128, 11/32, 13/32];
-  p[[All, 3]] = {0, 0, -2, 3, 1, -2, 2, 1024+1024 y y};
+  p[[All, 3]] = {0, 0, -11, -1, -3, -15, 0, 977};
   p
 ];
 
@@ -73,7 +73,7 @@ good1[x_, y_] := Module[{p},
 
 good2[x_, y_] := Module[{p},
   p = main[x, y, x/2 - 1/2048, 1/16, 1/2];
-  p[[All, 3]] = {0, 0, -4, -2, 2048, -4, 1816*x - 229, 16384+16384 y y};
+  p[[All, 3]] = {0, -2017, 0, -2, -1, -3, 0, 1430};
   p
 ];
 
@@ -93,7 +93,7 @@ We are covering a superset of our domains.*)
 ];
 
 good2A[t0_,h_] := Module[{t,x,y},
-    t=(9/128)*(1-t0)+(9/32)*t0;
+    t=(143/1704)*(1-t0)+(9/32)*t0;
     x=2*t/(t*t+1);
     y=(1-t*t)/(t*t+1)+h;
     good2[x,y]
@@ -244,8 +244,8 @@ list1A = Table[VOL1A[t,h,Q], {Q,QLIST}];
 list2A = Table[VOL2A[t,h,Q], {Q,QLIST}];
 
 (* Test the volumes *)
-pos1A = Table[StripDom[P], {P,list1A}];
-pos2A = Table[StripDom[P], {P,list2A}];
+pos1A = Table[Min[StripDom[P/.t->t/2],StripDom[P/.t->1-t/2]], {P,list1A}];
+pos2A = Table[Min[StripDom[P/.t->t/2],StripDom[P/.t->1-t/2]], {P,list2A}];
 
 Print["********************************"];
 Print["******* LIFTING CHECK *********"];
